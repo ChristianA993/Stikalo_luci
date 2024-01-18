@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Light Switch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- Povezava na zunanji CSS datoteki -->
+    <title>Light Switch</title> <!-- Naslov strani -->
     <script>
         function toggleLight(checkbox) {
-            var state = checkbox.checked ? 'on' : 'off';
+            var state = checkbox.checked ? 'on' : 'off'; // Določanje stanja glede na označeno polje
             fetch(`/toggle/${state}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('lightImage').src = data.image;
+                    document.getElementById('lightImage').src = data.image; // Nastavitev slike glede na prejeto podatkovno pot
                     if (state === 'on') {
-                        startTimer();
+                        startTimer(); // Vklop časovnika ob vklopu svetlobe
                     } else {
-                        stopTimer();
+                        stopTimer(); // Izklop časovnika ob izklopu svetlobe
                     }
                 });
         }
 
-        var timer = null;
-        var seconds = 0;
+        var timer = null; // Spremenljivka za shranjevanje ID-ja intervala
+        var seconds = 0; // Spremenljivka za štetje časa v sekundah
 
         function startTimer() {
-            stopTimer();
-            seconds = 0;
+            stopTimer(); // Prekinitev morebitnega tekočega intervala
+            seconds = 0; // Ponastavitev štetja
             timer = setInterval(function() {
-                document.getElementById('timer').innerText = ++seconds;
-            }, 1000);
+                document.getElementById('timer').innerText = ++seconds; // Posodobitev prikaza časa
+            }, 1000); // Interval posodobitve vsako sekundo
         }
 
         function stopTimer() {
             if (timer) {
-                clearInterval(timer);
-                timer = null;
+                clearInterval(timer); // Prekinitev intervala
+                timer = null; // Ponastavitev ID-ja intervala
             }
         }
     </script>
 </head>
 <body>
-    <div class="content">
-        <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" class="center">
-        <div class="mid">
-            <label class="rocker">
-                <input type="checkbox" id="lightSwitch" onclick="toggleLight(this)">
-                <span class="switch-left">On</span>
-                <span class="switch-right">Off</span>
+    <div class="content"> <!-- Glavna vsebina strani -->
+        <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" class="center"> <!-- Slika svetlobe z osrednjo poravnavo -->
+        <div class="mid"> <!-- Sredinski del strani -->
+            <label class="rocker"> <!-- Stilizirano stikalo -->
+                <input type="checkbox" id="lightSwitch" onclick="toggleLight(this)"> <!-- Polje za vklop/izklop svetlobe -->
+                <span class="switch-left">On</span> <!-- Besedilo za vklop -->
+                <span class="switch-right">Off</span> <!-- Besedilo za izklop -->
             </label>
         </div>
-        <div class="timer">Timer: <span id="timer">0</span> seconds</div>
+        <div class="timer">Timer: <span id="timer">0</span> seconds</div> <!-- Prikaži časovnik -->
     </div>
 </body>
 </html>

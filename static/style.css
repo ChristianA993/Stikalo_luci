@@ -1,177 +1,180 @@
+/* Osnovne nastavitve za celotno HTML stran */
 html {
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  font-size: 100%;
+  box-sizing: border-box; /* Uporaba box modela z robovi */
+  font-family: 'Roboto', sans-serif; /* Uporaba pisave Roboto ali drugih brezserifnih pisav */
+  font-size: 100%; /* Privzeta velikost pisave 100% glede na osnovno velikost */
 }
+
 *, *:before, *:after {
-  box-sizing: inherit;
-  margin:0;
-  padding:0;
+  box-sizing: inherit; /* Podedovanje box modela */
+  margin: 0; /* Brez zunanjih robov */
+  padding: 0; /* Brez notranjih robov */
 }
+
+/* Sredinski del (mid) */
 .mid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top:1em;
+  display: flex; /* Uporaba fleksibilnega modela za poravnavo elementov v sredino */
+  align-items: center; /* Poravnavanje po vertikali */
+  justify-content: center; /* Poravnavanje po horizontali */
+  padding-top: 1em; /* Zgornji polnjenje 1em */
 }
 
-
-/* Switch starts here */
+/* Stilizacija stikala se začne tukaj */
 .rocker {
-  display: inline-block;
-  position: relative;
-  /*
-  SIZE OF SWITCH
-  ==============
-  All sizes are in em - therefore
-  changing the font-size here
-  will change the size of the switch.
-  See .rocker-small below as example.
-  */
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  color: #888;
-  width: 7em;
-  height: 4em;
-  overflow: hidden;
-  border-bottom: 0.5em solid #eee;
+  display: inline-block; /* Prikaz bloka v vrstici */
+  position: relative; /* Relativni položaj glede na svoj izvirni položaj */
+  font-size: 2em; /* Velikost pisave za stikalo */
+  font-weight: bold; /* Debelina pisave */
+  text-align: center; /* Sredinsko poravnavanje besedila */
+  text-transform: uppercase; /* Pretvorba besedila v velike črke */
+  color: #888; /* Barva besedila */
+  width: 7em; /* Širina stikala */
+  height: 4em; /* Višina stikala */
+  overflow: hidden; /* Skritje morebitnega presežka vsebine */
+  border-bottom: 0.5em solid #eee; /* Spodnji rob sive barve */
 }
 
 .rocker-small {
-  font-size: 0.75em; /* Sizes the switch */
-  margin: 1em;
+  font-size: 0.75em; /* Velikost stikala za majhne velikosti */
+  margin: 1em; /* Zunanji rob za majhna stikala */
 }
 
 .rocker::before {
-  content: "";
-  position: absolute;
-  top: 0.5em;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #999;
-  border: 0.5em solid #eee;
-  border-bottom: 0;
+  content: ""; /* Generiranje vsebine pred elementom */
+  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
+  top: 0.5em; /* Zgornji rob 0.5em */
+  left: 0; /* Levi rob 0 */
+  right: 0; /* Desni rob 0 */
+  bottom: 0; /* Spodnji rob 0 */
+  background-color: #999; /* Siva barva ozadja */
+  border: 0.5em solid #eee; /* Rob sive barve */
+  border-bottom: 0; /* Brez spodnjega roba */
 }
 
 .rocker input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  opacity: 0; /* Nevidnost vhodnega polja */
+  width: 0; /* Brez širine */
+  height: 0; /* Brez višine */
 }
 
+/* Stikalo levo in desno */
 .switch-left,
 .switch-right {
-  cursor: pointer;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5em;
-  width: 3em;
-  transition: 0.2s;
+  cursor: pointer; /* Kazalec ob prehodu miške */
+  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
+  display: flex; /* Uporaba fleksibilnega modela za poravnavo elementov */
+  align-items: center; /* Poravnavanje po vertikali */
+  justify-content: center; /* Poravnavanje po horizontali */
+  height: 2.5em; /* Višina stikala */
+  width: 3em; /* Širina stikala */
+  transition: 0.2s; /* Animacija 0.2 sekunde */
 }
 
 .switch-left {
-  height: 2.4em;
-  width: 2.75em;
-  left: 0.85em;
-  bottom: 0.4em;
-  background-color: #ddd;
-  transform: rotate(15deg) skewX(15deg);
+  height: 2.4em; /* Višina stikala na levi strani */
+  width: 2.75em; /* Širina stikala na levi strani */
+  left: 0.85em; /* Leva razdalja od roba */
+  bottom: 0.4em; /* Spodnja razdalja od roba */
+  background-color: #ddd; /* Siva barva ozadja na levi strani */
+  transform: rotate(15deg) skewX(15deg); /* Rotacija in naklon */
 }
 
 .switch-right {
-  right: 0.5em;
-  bottom: 0;
-  background-color: #bd5757;
-  color: #fff;
+  right: 0.5em; /* Desna razdalja od roba */
+  bottom: 0; /* Spodnja razdalja od roba */
+  background-color: #bd5757; /* Rdeča barva ozadja na desni strani */
+  color: #fff; /* Bela barva besedila */
 }
 
 .switch-left::before,
 .switch-right::before {
-  content: "";
-  position: absolute;
-  width: 0.4em;
-  height: 2.45em;
-  bottom: -0.45em;
-  background-color: #ccc;
-  transform: skewY(-65deg);
+  content: ""; /* Generiranje vsebine pred elementom */
+  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
+  width: 0.4em; /* Širina */
+  height: 2.45em; /* Višina */
+  bottom: -0.45em; /* Spodnja razdalja od roba */
+  background-color: #ccc; /* Siva barva ozadja */
+  transform: skewY(-65deg); /* Nagib v levo */
 }
 
 .switch-left::before {
-  left: -0.4em;
+  left: -0.4em; /* Leva razdalja od roba */
 }
 
 .switch-right::before {
-  right: -0.375em;
-  background-color: transparent;
-  transform: skewY(65deg);
+  right: -0.375em; /* Desna razdalja od roba */
+  background-color: transparent; /* Prozorna barva ozadja */
+  transform: skewY(65deg); /* Nagib v desno */
 }
 
+/* Ob kliku na levo stikalo */
 input:checked + .switch-left {
-  background-color: #0084d0;
-  color: #fff;
-  bottom: 0px;
-  left: 0.5em;
-  height: 2.5em;
-  width: 3em;
-  transform: rotate(0deg) skewX(0deg);
+  background-color: #0084d0; /* Modra barva ozadja */
+  color: #fff; /* Bela barva besedila */
+  bottom: 0px; /* Spodnja razdalja od roba */
+  left: 0.5em; /* Leva razdalja od roba */
+  height: 2.5em; /* Višina stikala */
+  width: 3em; /* Širina stikala */
+  transform: rotate(0deg) skewX(0deg); /* Brez rotacije in naklona */
 }
 
+/* Ob kliku na levo stikalo - dodatna nastavitev za prednje ozadje */
 input:checked + .switch-left::before {
-  background-color: transparent;
-  width: 3.0833em;
+  background-color: transparent; /* Prozorna barva ozadja */
+  width: 3.0833em; /* Širina prednje ozadje */
 }
 
+/* Ob kliku na levo stikalo - dodatna nastavitev za desno stikalo */
 input:checked + .switch-left + .switch-right {
-  background-color: #ddd;
-  color: #888;
-  bottom: 0.4em;
-  right: 0.8em;
-  height: 2.4em;
-  width: 2.75em;
-  transform: rotate(-15deg) skewX(-15deg);
+  background-color: #ddd; /* Siva barva ozadja */
+  color: #888; /* Siva barva besedila */
+  bottom: 0.4em; /* Spodnja razdalja od roba */
+  right: 0.8em; /* Desna razdalja od roba */
+  height: 2.4em; /* Višina stikala */
+  width: 2.75em; /* Širina stikala */
+  transform: rotate(-15deg) skewX(-15deg); /* Rotacija in naklon */
 }
 
+/* Ob kliku na levo stikalo - dodatna nastavitev za prednje ozadje desne strani */
 input:checked + .switch-left + .switch-right::before {
-  background-color: #ccc;
+  background-color: #ccc; /* Siva barva ozadja */
 }
 
-/* Keyboard Users */
+/* Uporabniki tipkovnice */
 input:focus + .switch-left {
-  color: #333;
+  color: #333; /* Temna barva besedila ob osredotočenju */
 }
 
+/* Ob kliku in osredotočenju na levo stikalo - dodatna nastavitev barve besedila */
 input:checked:focus + .switch-left {
-  color: #fff;
+  color: #fff; /* Bela barva besedila */
 }
 
+/* Osredotočanje na levo stikalo in desno stikalo - dodatna nastavitev barve besedila */
 input:focus + .switch-left + .switch-right {
-  color: #fff;
+  color: #fff; /* Bela barva besedila */
 }
 
+/* Klik na levo stikalo in osredotočanje na desno stikalo - dodatna nastavitev barve besedila */
 input:checked:focus + .switch-left + .switch-right {
-  color: #333;
+  color: #333; /* Temna barva besedila */
 }
 
-
+/* Vsebina */
 .content {
-  text-align: center; /* Centers the inline(-block) elements within */
+  text-align: center; /* Sredinsko poravnavanje besedila */
 }
 
+/* Sredinska poravnava slike */
 .center {
-  display: block; /* Makes the image a block element */
-  margin-left: auto;
-  margin-right: auto;
-  width: 300px; /* Your specified width */
-  /* height: 400px; /* Your specified height */
+  display: block; /* Blokovni prikaz slike */
+  margin-left: auto; /* Samodejna poravnava levega roba slike */
+  margin-right: auto; /* Samodejna poravnava desnega roba slike */
+  width: 300px; /* Širina slike 300px */
+  /* height: 400px; /* Višina slike 400px - trenutno izklopljeno */
 }
 
+/* Nastavitve za časovnik */
 .timer {
-  margin-top: 10px;
+  margin-top: 10px; /* Zgornji rob 10px */
 }
-
-
