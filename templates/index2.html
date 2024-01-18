@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Light Switch</title>
+    <script>
+        function toggleLight() {
+            var checkbox = document.getElementById('lightSwitch');
+            var state = checkbox.checked ? 'on' : 'off';
+            fetch(`/toggle/${state}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('lightImage').src = data.image;
+                    if (state === 'on') {
+                        startTimer();
+                    } else {
+                        stopTimer();
+                    }
+                });
+        }
+
+        var timer = null;
+        var seconds = 0;
+
+        function startTimer() {
+            stopTimer();
+            seconds = 0;
+            timer = setInterval(function() {
+                document.getElementById('timer').innerText = ++seconds;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+    </script>
+</head>
+<body>
+    <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" style="width: 400px; height: 400px;">
+    <br>
+    <input type="checkbox" id="lightSwitch" onclick="toggleLight()"> On / Off
+    <br>
+    Timer: <span id="timer">0</span> seconds
+</body>
+
+</html>
