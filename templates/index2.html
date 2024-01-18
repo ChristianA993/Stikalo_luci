@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Light Switch</title>
     <script>
-        function toggleLight() {
-            var checkbox = document.getElementById('lightSwitch');
+        function toggleLight(checkbox) {
             var state = checkbox.checked ? 'on' : 'off';
             fetch(`/toggle/${state}`)
                 .then(response => response.json())
@@ -38,11 +38,16 @@
     </script>
 </head>
 <body>
-    <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" style="width: 400px; height: 400px;">
-    <br>
-    <input type="checkbox" id="lightSwitch" onclick="toggleLight()"> On / Off
-    <br>
-    Timer: <span id="timer">0</span> seconds
+    <div class="content">
+        <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" class="center">
+        <div class="mid">
+            <label class="rocker">
+                <input type="checkbox" id="lightSwitch" onclick="toggleLight(this)">
+                <span class="switch-left">On</span>
+                <span class="switch-right">Off</span>
+            </label>
+        </div>
+        <div class="timer">Timer: <span id="timer">0</span> seconds</div>
+    </div>
 </body>
-
 </html>
