@@ -1,101 +1,124 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- Povezava na zunanji CSS datoteki -->
-    <title>Light Switch</title> <!-- Naslov strani -->
+    <!-- Povezava do zunanje CSS datoteke -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Naslov spletne strani -->
+    <title>Light Switch</title>
     <script>
-        var timer = null; // Spremenljivka za shranjevanje ID-ja intervala
-        var seconds = 0; // Spremenljivka za štetje časa v sekundah
+        // Spremenljivki za merjenje časa in ID intervala
+        var timer = null;
+        var seconds = 0;
 
-
+        // Funkcija za upravljanje svetlobe (vklop/izklop)
         function toggleLight(checkbox) {
             const state = checkbox.checked ? 'on' : 'off';
             let time = 0;
             const watts = document.getElementById("wattSlider").value;
 
+            // Nastavi čas, ko je luč izklopljena
             if (state === 'off') {
-                time = seconds;  // Use the timer seconds when turning off
+                time = seconds;
             }
 
+            // Pošlje zahtevo na strežnik z trenutnim stanjem, časom in vatno močjo
             const url = `/toggle/${state}/${time}/${watts}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    // Spremeni sliko glede na stanje in posodobi časovnik
                     document.getElementById('lightImage').src = data.image;
                     if (state === 'on') {
                         startTimer();
                     } else {
                         stopTimer();
-                        updateConsumptionData();  // Update the consumption data after server has responded
+                        updateConsumptionData(); // Posodobi podatke o porabi po odgovoru strežnika
                     }
                 })
                 .catch(error => console.error('Error:', error));
         }
 
-
+        // Začne merjenje časa
         function startTimer() {
-            stopTimer(); // Prekinitev morebitnega tekočega intervala
-            seconds = 0; // Ponastavitev štetja
+            stopTimer();
+            seconds = 0;
             timer = setInterval(function() {
-                document.getElementById('timer').innerText = ++seconds; // Posodobitev prikaza časa
-            }, 1000); // Interval posodobitve vsako sekundo
+                document.getElementById('timer').innerText = ++seconds;
+            }, 1000);
         }
 
-
+        // Ustavi merjenje časa
         function stopTimer() {
             if (timer) {
-                clearInterval(timer); // Prekinitev intervala
-                timer = null; // Ponastavitev ID-ja intervala
+                clearInterval(timer);
+                timer = null;
             }
         }
 
-
+        // Posodobi prikazano vatno moč
         function updateSliderValue(value) {
             document.getElementById("sliderValue").innerText = value + 'W';
         }
 
-
+        // Pridobi in prikaže podatke o porabi
         function updateConsumptionData() {
             fetch('/get_consumption_data')
                 .then(response => response.json())
                 .then(result => {
                     const { data, total_Wh } = result;
                     const list = document.getElementById('consumptionList');
-                    list.innerHTML = ''; // Clear existing list
+                    const dividers = document.querySelectorAll('.divider');
+                    list.innerHTML = '';
 
+                    // Prikaže posamezne vnose porabe
                     data.forEach((item, index) => {
                         const listItem = document.createElement('li');
-                        listItem.textContent = `Entry ${index + 1}: ${item.time} sec, ${item.watts} W  =  ${item['watt-hours'].toFixed(3)} Wh`;
+                        listItem.textContent = `Entry ${index + 1}: Time - ${item.time} seconds, Watts - ${item.watts}, Watt-hours - ${item['watt-hours'].toFixed(2)}`;
                         list.appendChild(listItem);
                     });
 
-                    // Update total watt-hours
-                    document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(3)}`;
+                    // Prikaz delilnikov, če so vnosi
+                    dividers.forEach(divider => {
+                        divider.style.display = data.length > 0 ? 'block' : 'none';
+                    });
+
+                    // Posodobi skupne vat-ure
+                    document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(2)}`;
                 })
                 .catch(error => console.error('Error fetching consumption data:', error));
         }
     </script>
 </head>
 <body>
-    <div class="content"> <!-- Glavna vsebina strani -->
-        <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" class="center"> <!-- Slika svetlobe z osrednjo poravnavo -->
-        <div class="mid"> <!-- Sredinski del strani -->
-            <label class="rocker"> <!-- Stilizirano stikalo -->
-                <input type="checkbox" id="lightSwitch" onclick="toggleLight(this)"> <!-- Polje za vklop/izklop svetlobe -->
+    <!-- Glavna vsebina strani -->
+    <div class="content">
+        <!-- Slika svetlobe z osrednjo poravnavo -->
+        <img id="lightImage" src="{{ url_for('static', filename='light_off.jpg') }}" alt="Light" class="center">
+        <!-- Sredinski del strani -->
+        <div class="mid">
+            <!-- Stilizirano stikalo -->
+            <label class="rocker">
+                <!-- Polje za vklop/izklop svetlobe -->
+                <input type="checkbox" id="lightSwitch" onclick="toggleLight(this)">
                 <span class="switch-left">On</span> <!-- Besedilo za vklop -->
                 <span class="switch-right">Off</span> <!-- Besedilo za izklop -->
             </label>
         </div>
+        <!-- Drsnik za nastavitev vatne moči žarnice -->
         <div class="slider-container">
-            <label>Input wattage:</label>
+            <label>Bulb wattage:</label>
             <input type="range" min="1" max="100" value="50" class="slider" id="wattSlider" oninput="updateSliderValue(this.value)">
             <span id="sliderValue">50W</span>
         </div>
-        <div class="timer">Timer: <span id="timer">0</span> seconds</div> <!-- Prikaži časovnik -->
+        <!-- Prikaz časovnika -->
+        <div class="timer">Timer: <span id="timer">0</span> seconds</div>
+        <!-- Prikaz podatkov o porabi -->
         <div class="consumption-data">
             <h3>Consumption Data:</h3>
+            <div class="divider"></div>
             <ul id="consumptionList"></ul>
-            <div id="totalWattHours"></div>
+            <div class="divider"></div>
+            <h3 id="totalWattHours"></h3>
         </div>
     </div>
 </body>

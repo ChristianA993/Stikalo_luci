@@ -1,180 +1,215 @@
 /* Osnovne nastavitve za celotno HTML stran */
 html {
-  box-sizing: border-box; /* Uporaba box modela z robovi */
-  font-family: 'Roboto', sans-serif; /* Uporaba pisave Roboto ali drugih brezserifnih pisav */
-  font-size: 100%; /* Privzeta velikost pisave 100% glede na osnovno velikost */
+  box-sizing: border-box; /* Določa box model elementov tako, da vključuje robove in polnilo v širino/višino */
+  font-family: 'Roboto', sans-serif; /* Določa privzeto pisavo za stran, 'Roboto' ali katero koli brezserifno pisavo */
+  font-size: 100%; /* Nastavi privzeto velikost pisave na 100% od osnovne velikosti brskalnika */
 }
 
+/* Slog za vse elemente in psevdo-elemente pred in po elementih */
 *, *:before, *:after {
-  box-sizing: inherit; /* Podedovanje box modela */
-  margin: 0; /* Brez zunanjih robov */
-  padding: 0; /* Brez notranjih robov */
+  box-sizing: inherit; /* Elementi podedujejo box model od svojega starša */
+  margin: 0; /* Odstrani vse zunanje robove elementov */
+  padding: 0; /* Odstrani vse notranje robove elementov */
 }
 
 /* Sredinski del (mid) */
 .mid {
-  display: flex; /* Uporaba fleksibilnega modela za poravnavo elementov v sredino */
-  align-items: center; /* Poravnavanje po vertikali */
-  justify-content: center; /* Poravnavanje po horizontali */
-  padding-top: 1em; /* Zgornji polnjenje 1em */
+  display: flex; /* Uporabi fleksibilni prikaz za lažje centriranje elementov */
+  align-items: center; /* Poravna elemente vertikalno na sredino */
+  justify-content: center; /* Poravna elemente horizontalno na sredino */
+  padding-top: 1em; /* Doda zgornji polnilo 1em */
 }
 
 /* Stilizacija stikala se začne tukaj */
 .rocker {
-  display: inline-block; /* Prikaz bloka v vrstici */
-  position: relative; /* Relativni položaj glede na svoj izvirni položaj */
-  font-size: 2em; /* Velikost pisave za stikalo */
-  font-weight: bold; /* Debelina pisave */
-  text-align: center; /* Sredinsko poravnavanje besedila */
-  text-transform: uppercase; /* Pretvorba besedila v velike črke */
-  color: #888; /* Barva besedila */
+  display: inline-block; /* Stikalo se prikaže v vrsti (inline) kot blok */
+  position: relative; /* Položaj stikala je relativni */
+  font-size: 2em; /* Določa velikost pisave za stikalo */
+  font-weight: bold; /* Določa debelino pisave */
+  text-align: center; /* Poravna besedilo v sredino stikala */
+  text-transform: uppercase; /* Pretvori vse črke v velike črke */
+  color: #888; /* Barva besedila stikala */
   width: 7em; /* Širina stikala */
   height: 4em; /* Višina stikala */
-  overflow: hidden; /* Skritje morebitnega presežka vsebine */
-  border-bottom: 0.5em solid #eee; /* Spodnji rob sive barve */
+  overflow: hidden; /* Skrije vsebino, ki bi štrlela iz stikala */
+  border-bottom: 0.5em solid #eee; /* Določi spodnji rob stikala */
 }
 
+/* Dodatni stil za majhna stikala */
 .rocker-small {
-  font-size: 0.75em; /* Velikost stikala za majhne velikosti */
-  margin: 1em; /* Zunanji rob za majhna stikala */
+  font-size: 0.75em; /* Manjša velikost pisave za majhna stikala */
+  margin: 1em; /* Doda zunanji rob okoli majhnega stikala */
 }
 
+/* Stil za generiran element pred stikalom */
 .rocker::before {
-  content: ""; /* Generiranje vsebine pred elementom */
-  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
-  top: 0.5em; /* Zgornji rob 0.5em */
-  left: 0; /* Levi rob 0 */
-  right: 0; /* Desni rob 0 */
-  bottom: 0; /* Spodnji rob 0 */
-  background-color: #999; /* Siva barva ozadja */
-  border: 0.5em solid #eee; /* Rob sive barve */
+  content: ""; /* Generira prazen element */
+  position: absolute; /* Položaj je absoluten glede na bližnji relativni element */
+  top: 0.5em; /* Razdalja od vrha */
+  left: 0; /* Razdalja od levega roba */
+  right: 0; /* Razdalja od desnega roba */
+  bottom: 0; /* Razdalja od spodnjega roba */
+  background-color: #999; /* Barva ozadja generiranega elementa */
+  border: 0.5em solid #eee; /* Rob generiranega elementa */
   border-bottom: 0; /* Brez spodnjega roba */
 }
 
+/* Skrije vhodno polje stikala */
 .rocker input {
-  opacity: 0; /* Nevidnost vhodnega polja */
-  width: 0; /* Brez širine */
-  height: 0; /* Brez višine */
+  opacity: 0; /* Naredi vhodno polje popolnoma nevidno */
+  width: 0; /* Širina vhodnega polja je 0 */
+  height: 0; /* Višina vhodnega polja je 0 */
 }
 
-/* Stikalo levo in desno */
+/* Stil za levo in desno stran stikala */
 .switch-left,
 .switch-right {
-  cursor: pointer; /* Kazalec ob prehodu miške */
-  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
-  display: flex; /* Uporaba fleksibilnega modela za poravnavo elementov */
-  align-items: center; /* Poravnavanje po vertikali */
-  justify-content: center; /* Poravnavanje po horizontali */
+  cursor: pointer; /* Spremeni kazalec miške v kazalca ko je nad elementom */
+  position: absolute; /* Absolutni položaj glede na najbližji relativni element */
+  display: flex; /* Flex prikaz za poravnavo vsebine */
+  align-items: center; /* Vertikalno centriranje vsebine */
+  justify-content: center; /* Horizontalno centriranje vsebine */
   height: 2.5em; /* Višina stikala */
   width: 3em; /* Širina stikala */
-  transition: 0.2s; /* Animacija 0.2 sekunde */
+  transition: 0.2s; /* Animacija traja 0.2 sekunde */
 }
 
+/* Stil za levo stran stikala */
 .switch-left {
-  height: 2.4em; /* Višina stikala na levi strani */
-  width: 2.75em; /* Širina stikala na levi strani */
-  left: 0.85em; /* Leva razdalja od roba */
-  bottom: 0.4em; /* Spodnja razdalja od roba */
-  background-color: #ddd; /* Siva barva ozadja na levi strani */
-  transform: rotate(15deg) skewX(15deg); /* Rotacija in naklon */
+  height: 2.4em; /* Višina leve strani stikala */
+  width: 2.75em; /* Širina leve strani stikala */
+  left: 0.85em; /* Razdalja od levega roba */
+  bottom: 0.4em; /* Razdalja od spodnjega roba */
+  background-color: #ddd; /* Barva ozadja leve strani */
+  transform: rotate(15deg) skewX(15deg); /* Rotacija in nagib leve strani */
 }
 
+/* Stil za desno stran stikala */
 .switch-right {
-  right: 0.5em; /* Desna razdalja od roba */
-  bottom: 0; /* Spodnja razdalja od roba */
-  background-color: #bd5757; /* Rdeča barva ozadja na desni strani */
-  color: #fff; /* Bela barva besedila */
+  right: 0.5em; /* Razdalja od desnega roba */
+  bottom: 0; /* Razdalja od spodnjega roba */
+  background-color: #bd5757; /* Barva ozadja desne strani */
+  color: #fff; /* Barva besedila desne strani */
 }
 
+/* Stil za generirani element pred levo in desno stranjo stikala */
 .switch-left::before,
 .switch-right::before {
-  content: ""; /* Generiranje vsebine pred elementom */
-  position: absolute; /* Absolutni položaj relativno na bližnji ovojnik */
-  width: 0.4em; /* Širina */
-  height: 2.45em; /* Višina */
-  bottom: -0.45em; /* Spodnja razdalja od roba */
-  background-color: #ccc; /* Siva barva ozadja */
-  transform: skewY(-65deg); /* Nagib v levo */
+  content: ""; /* Generira prazen element */
+  position: absolute; /* Absolutni položaj glede na bližnji element */
+  width: 0.4em; /* Širina generiranega elementa */
+  height: 2.45em; /* Višina generiranega elementa */
+  bottom: -0.45em; /* Razdalja od spodnjega roba */
+  background-color: #ccc; /* Barva ozadja generiranega elementa */
+  transform: skewY(-65deg); /* Nagib generiranega elementa v levo */
 }
 
+/* Poseben stil za generirani element pred levo stranjo stikala */
 .switch-left::before {
-  left: -0.4em; /* Leva razdalja od roba */
+  left: -0.4em; /* Razdalja od levega roba */
 }
 
+/* Poseben stil za generirani element pred desno stranjo stikala */
 .switch-right::before {
-  right: -0.375em; /* Desna razdalja od roba */
+  right: -0.375em; /* Razdalja od desnega roba */
   background-color: transparent; /* Prozorna barva ozadja */
-  transform: skewY(65deg); /* Nagib v desno */
+  transform: skewY(65deg); /* Nagib generiranega elementa v desno */
 }
 
-/* Ob kliku na levo stikalo */
+/* Stil ob kliku na levo stran stikala */
 input:checked + .switch-left {
   background-color: #0084d0; /* Modra barva ozadja */
   color: #fff; /* Bela barva besedila */
-  bottom: 0px; /* Spodnja razdalja od roba */
-  left: 0.5em; /* Leva razdalja od roba */
+  bottom: 0px; /* Razdalja od spodnjega roba */
+  left: 0.5em; /* Razdalja od levega roba */
   height: 2.5em; /* Višina stikala */
   width: 3em; /* Širina stikala */
-  transform: rotate(0deg) skewX(0deg); /* Brez rotacije in naklona */
+  transform: rotate(0deg) skewX(0deg); /* Brez rotacije in nagiba */
 }
 
-/* Ob kliku na levo stikalo - dodatna nastavitev za prednje ozadje */
+/* Dodatna nastavitev za prednje ozadje ob kliku na levo stran stikala */
 input:checked + .switch-left::before {
   background-color: transparent; /* Prozorna barva ozadja */
-  width: 3.0833em; /* Širina prednje ozadje */
+  width: 3.0833em; /* Širina prednje ozadja */
 }
 
-/* Ob kliku na levo stikalo - dodatna nastavitev za desno stikalo */
+/* Dodatna nastavitev za desno stran stikala ob kliku na levo stran */
 input:checked + .switch-left + .switch-right {
   background-color: #ddd; /* Siva barva ozadja */
   color: #888; /* Siva barva besedila */
-  bottom: 0.4em; /* Spodnja razdalja od roba */
-  right: 0.8em; /* Desna razdalja od roba */
+  bottom: 0.4em; /* Razdalja od spodnjega roba */
+  right: 0.8em; /* Razdalja od desnega roba */
   height: 2.4em; /* Višina stikala */
   width: 2.75em; /* Širina stikala */
-  transform: rotate(-15deg) skewX(-15deg); /* Rotacija in naklon */
+  transform: rotate(-15deg) skewX(-15deg); /* Rotacija in nagib */
 }
 
-/* Ob kliku na levo stikalo - dodatna nastavitev za prednje ozadje desne strani */
+/* Dodatna nastavitev za prednje ozadje desne strani ob kliku na levo stran */
 input:checked + .switch-left + .switch-right::before {
   background-color: #ccc; /* Siva barva ozadja */
 }
 
-/* Uporabniki tipkovnice */
+/* Stil za uporabnike tipkovnice ob osredotočanju na levo stran stikala */
 input:focus + .switch-left {
   color: #333; /* Temna barva besedila ob osredotočenju */
 }
 
-/* Ob kliku in osredotočenju na levo stikalo - dodatna nastavitev barve besedila */
+/* Dodatna nastavitev barve besedila ob kliku in osredotočenju na levo stran stikala */
 input:checked:focus + .switch-left {
-  color: #fff; /* Bela barva besedila */
+  color: #fff; /* Bela barva besedila ob osredotočenju */
 }
 
-/* Osredotočanje na levo stikalo in desno stikalo - dodatna nastavitev barve besedila */
+/* Dodatna nastavitev barve besedila ob osredotočanju na levo in desno stran stikala */
 input:focus + .switch-left + .switch-right {
-  color: #fff; /* Bela barva besedila */
+  color: #fff; /* Bela barva besedila ob osredotočenju */
 }
 
-/* Klik na levo stikalo in osredotočanje na desno stikalo - dodatna nastavitev barve besedila */
+/* Dodatna nastavitev barve besedila ob kliku in osredotočanju na desno stran stikala */
 input:checked:focus + .switch-left + .switch-right {
-  color: #333; /* Temna barva besedila */
+  color: #333; /* Temna barva besedila ob osredotočenju */
 }
 
-/* Vsebina */
+/* Splošni stil za vsebino strani */
 .content {
-  text-align: center; /* Sredinsko poravnavanje besedila */
+  text-align: center; /* Besedilo poravnano na sredino */
 }
 
-/* Sredinska poravnava slike */
+/* Stil za sredinsko poravnano sliko */
 .center {
-  display: block; /* Blokovni prikaz slike */
+  display: block; /* Slika prikazana kot blok */
   margin-left: auto; /* Samodejna poravnava levega roba slike */
   margin-right: auto; /* Samodejna poravnava desnega roba slike */
-  width: 300px; /* Širina slike 300px */
-  /* height: 400px; /* Višina slike 400px - trenutno izklopljeno */
+  width: 300px; /* Širina slike nastavljena na 300px */
+  /* height: 400px; /* Višina slike trenutno izklopljena */
 }
 
-/* Nastavitve za časovnik */
+/* Stil za časovnik */
 .timer {
-  margin-top: 10px; /* Zgornji rob 10px */
+  margin-top: 10px; /* Zgornji rob nastavljen na 10px */
+}
+
+/* Slog za drsnik za nastavitev vatov */
+#wattSlider {
+    width: 50%; /* Drsnik povečan za 50% */
+    margin-top: 15px; /* Dodan zgornji rob 15px */
+}
+
+/* Slog za odsek s podatki o porabi */
+.consumption-data {
+    margin-top: 15px; /* Dodan zgornji rob 15px */
+}
+
+/* Slog za skupne vat-ure, da se ujemajo s slogom h1 */
+#totalWattHours {
+    font-weight: bold; /* Nastavitev na krepko */
+    /* Dodajte druge sloge, da se ujemajo z vašimi h1 elementi */
+}
+
+/* Slog za delilnik */
+.divider {
+    border-bottom: 1px solid #000; /* Trdna črna črta */
+    margin: 10px 0; /* Razmik zgoraj in spodaj */
+    margin-left: 100px; /* Levi rob */
+    margin-right: 100px; /* Desni rob */
+    display: none; /* Sprva skrit */
 }
