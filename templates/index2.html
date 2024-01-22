@@ -4,22 +4,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- Povezava na zunanji CSS datoteki -->
     <title>Light Switch</title> <!-- Naslov strani -->
     <script>
-        function toggleLight(checkbox) {
-            var state = checkbox.checked ? 'on' : 'off'; // Določanje stanja glede na označeno polje
-            fetch(`/toggle/${state}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('lightImage').src = data.image; // Nastavitev slike glede na prejeto podatkovno pot
-                    if (state === 'on') {
-                        startTimer(); // Vklop časovnika ob vklopu svetlobe
-                    } else {
-                        stopTimer(); // Izklop časovnika ob izklopu svetlobe
-                    }
-                });
-        }
-
         var timer = null; // Spremenljivka za shranjevanje ID-ja intervala
         var seconds = 0; // Spremenljivka za štetje časa v sekundah
+
+
+        function toggleLight(checkbox) {
+            const state = checkbox.checked ? 'on' : 'off';
+            let time = 0;
+            const watts = document.getElementById("wattSlider").value;
+
+            if (state === 'off') {
+                time = seconds;  // Use the timer seconds when turning off
+            }
+
+            const url = `/toggle/${state}/${time}/${watts}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('lightImage').src = data.image;
+                    if (state === 'on') {
+                        startTimer();
+                    } else {
+                        stopTimer();
+                        updateConsumptionData();  // Update the consumption data after server has responded
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
 
         function startTimer() {
             stopTimer(); // Prekinitev morebitnega tekočega intervala
@@ -29,11 +41,38 @@
             }, 1000); // Interval posodobitve vsako sekundo
         }
 
+
         function stopTimer() {
             if (timer) {
                 clearInterval(timer); // Prekinitev intervala
                 timer = null; // Ponastavitev ID-ja intervala
             }
+        }
+
+
+        function updateSliderValue(value) {
+            document.getElementById("sliderValue").innerText = value + 'W';
+        }
+
+
+        function updateConsumptionData() {
+            fetch('/get_consumption_data')
+                .then(response => response.json())
+                .then(result => {
+                    const { data, total_Wh } = result;
+                    const list = document.getElementById('consumptionList');
+                    list.innerHTML = ''; // Clear existing list
+
+                    data.forEach((item, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Entry ${index + 1}: ${item.time} sec, ${item.watts} W  =  ${item['watt-hours'].toFixed(3)} Wh`;
+                        list.appendChild(listItem);
+                    });
+
+                    // Update total watt-hours
+                    document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(3)}`;
+                })
+                .catch(error => console.error('Error fetching consumption data:', error));
         }
     </script>
 </head>
@@ -47,7 +86,17 @@
                 <span class="switch-right">Off</span> <!-- Besedilo za izklop -->
             </label>
         </div>
+        <div class="slider-container">
+            <label>Input wattage:</label>
+            <input type="range" min="1" max="100" value="50" class="slider" id="wattSlider" oninput="updateSliderValue(this.value)">
+            <span id="sliderValue">50W</span>
+        </div>
         <div class="timer">Timer: <span id="timer">0</span> seconds</div> <!-- Prikaži časovnik -->
+        <div class="consumption-data">
+            <h3>Consumption Data:</h3>
+            <ul id="consumptionList"></ul>
+            <div id="totalWattHours"></div>
+        </div>
     </div>
 </body>
 </html>
