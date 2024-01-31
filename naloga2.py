@@ -40,7 +40,7 @@ def export_to_list(state, time, watts):
     # Ko se luč izklopi, shranjuje čas, vate in izračuna vat-ure.
     global total_Wh
     if state == 'on':
-        image_file = 'light_on.jpg'
+        image_file = 'light_on.png'
     else:
         if time != "0":
             watt_hours = (int(time) / 3600) * int(watts)
@@ -52,7 +52,7 @@ def export_to_list(state, time, watts):
             total_Wh += watt_hours      # Dodajanje k skupnim vat-uram
             print_consumption_data()    # Izpis seznama porabe
 
-        image_file = 'light_off.jpg'
+        image_file = 'light_off.png'
     return jsonify({'image': url_for('static', filename=image_file), 'state': 'off' if state == 'on' else 'on'})
 
 

@@ -213,3 +213,7 @@ input:checked:focus + .switch-left + .switch-right {
     margin-right: 100px; /* Desni rob */
     display: none; /* Sprva skrit */
 }
+
+body {
+  background-color: white;
+}
