@@ -188,7 +188,7 @@ input:checked:focus + .switch-left + .switch-right {
   margin-top: 10px; /* Zgornji rob nastavljen na 10px */
 }
 
-/* Slog za drsnik za nastavitev vatov */
+/* Slog za drsnik za nastavitev  vatov */
 #wattSlider {
     width: 50%; /* Drsnik povečan za 50% */
     margin-top: 15px; /* Dodan zgornji rob 15px */
