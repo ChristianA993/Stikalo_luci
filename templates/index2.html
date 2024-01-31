@@ -65,33 +65,6 @@
         }
 
 
-        // // Pridobi in prikaže podatke o porabi
-        // function updateConsumptionData() {
-        //     fetch('/get_consumption_data')
-        //         .then(response => response.json())
-        //         .then(result => {
-        //             const { data, total_Wh } = result;
-        //             const list = document.getElementById('consumptionList');
-        //             const dividers = document.querySelectorAll('.divider');
-        //             list.innerHTML = '';
-        //
-        //             // Prikaže posamezne vnose porabe
-        //             data.forEach((item, index) => {
-        //                 const listItem = document.createElement('li');
-        //                 listItem.innerHTML = `Entry ${index + 1}: Time - ${item.time} seconds, Watts - ${item.watts}, Watt-hours - ${item['watt-hours'].toFixed(2)} <button onclick="deleteEntry(${index})">Delete</button>`;
-        //                 list.appendChild(listItem);
-        //             });
-        //
-        //             // Prikaz delilnikov, če so vnosi
-        //             dividers.forEach(divider => {
-        //                 divider.style.display = data.length > 0 ? 'block' : 'none';
-        //             });
-        //
-        //             // Posodobi skupne vat-ure
-        //             document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(2)}`;
-        //         })
-        //         .catch(error => console.error('Error fetching consumption data:', error));
-        // }
         function updateConsumptionData() {
             fetch('/get_consumption_data')
                 .then(response => response.json())
