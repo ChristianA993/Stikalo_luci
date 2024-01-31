@@ -30,12 +30,12 @@
                     const flareImage = document.getElementById('flareImage');
                     if (state === 'on') {
                         startTimer();
-                        flareImage.style.display = 'block'; // Prikaz slikovnega učinka ob vklopu
+                        flareImage.style.display = 'block'; // Prikaži flare sliko
                         flareImage.style.animationPlayState = 'running';
                     } else {
                         stopTimer();
                         updateConsumptionData();
-                        flareImage.style.display = 'none'; // Skrij slikovni učinek ob izklopu
+                        flareImage.style.display = 'none'; // Skrij flare sliko
                     }
                 })
                 .catch(error => console.error('Error:', error));
@@ -82,11 +82,11 @@
                         const deleteButton = document.createElement('button');
                         deleteButton.innerText = 'Delete';
                         deleteButton.onclick = function() { deleteEntry(index); };
-                        row.insertCell(5).appendChild(deleteButton);  // Dodaj gumb za brisanje
+                        row.insertCell(5).appendChild(deleteButton);  // Doda delete gumb
                         deleteButton.classList.add('delete-btn');
                     });
 
-                    document.getElementById('totalWattHours').innerText = `Skupna poraba: ${total_Wh.toFixed(2)} Wh`;
+                    document.getElementById('totalWattHours').innerText = `Total usage: ${total_Wh.toFixed(2)} Wh`;
                 })
                 .catch(error => console.error('Error fetching consumption data:', error));
         }
@@ -128,25 +128,25 @@
 
             <!-- Drsnik za nastavvitev vatne moči žarnice -->
             <div class="slider-container">
-                <label>Moč žarnice:</label> <!-- Oznaka za drsnik -->
+                <label>Bulb wattage:</label> <!-- Oznaka za drsnik -->
                 <input type="range" min="1" max="100" value="50" class="slider" id="wattSlider" oninput="updateSliderValue(this.value)"> <!-- Drsnik za izbiro moči žarnice -->
                 <span id="sliderValue">50W</span> <!-- Prikaz izbrane moči -->
             </div>
             <!-- Prikaz časovnika -->
-            <div class="timer">Časovnik: <span id="timer">0</span> sekund</div> <!-- Prikaz števca sekund -->
+            <div class="timer">Timer: <span id="timer">0</span> seconds</div> <!-- Prikaz števca sekund -->
             <!-- Prikaz podatkov o porabi -->
             <div class="consumption-data">
-                <!--<h3>Podatki o porabi:</h3>  Naslov za podatke o porabi -->
+                <!--<h3>Consumption Data:</h3>  Naslov za podatke o porabi -->
                 <h3 id="totalWattHours"></h3> <!-- Skupne vat-ure -->
                 <table id="consumptionTable">
                     <thead>
                         <tr>
-                            <th>Vnos</th>
-                            <th>Časovna oznaka</th>
-                            <th>Čas (s)</th>
-                            <th>Wati</th>
-                            <th>Vat-ure</th>
-                            <th>Dejanja</th>
+                            <th>Entry</th>
+                            <th>Timestamp</th>
+                            <th>Time (sec)</th>
+                            <th>Watts</th>
+                            <th>Watt-hours</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
