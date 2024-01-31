@@ -10,6 +10,7 @@
         var timer = null;
         var seconds = 0;
 
+
         // Funkcija za upravljanje svetlobe (vklop/izklop)
         function toggleLight(checkbox) {
             const state = checkbox.checked ? 'on' : 'off';
@@ -38,6 +39,7 @@
                 .catch(error => console.error('Error:', error));
         }
 
+
         // Začne merjenje časa
         function startTimer() {
             stopTimer();
@@ -47,6 +49,7 @@
             }, 1000);
         }
 
+
         // Ustavi merjenje časa
         function stopTimer() {
             if (timer) {
@@ -55,41 +58,80 @@
             }
         }
 
+
         // Posodobi prikazano vatno moč
         function updateSliderValue(value) {
             document.getElementById("sliderValue").innerText = value + 'W';
         }
 
-        // Pridobi in prikaže podatke o porabi
+
+        // // Pridobi in prikaže podatke o porabi
+        // function updateConsumptionData() {
+        //     fetch('/get_consumption_data')
+        //         .then(response => response.json())
+        //         .then(result => {
+        //             const { data, total_Wh } = result;
+        //             const list = document.getElementById('consumptionList');
+        //             const dividers = document.querySelectorAll('.divider');
+        //             list.innerHTML = '';
+        //
+        //             // Prikaže posamezne vnose porabe
+        //             data.forEach((item, index) => {
+        //                 const listItem = document.createElement('li');
+        //                 listItem.innerHTML = `Entry ${index + 1}: Time - ${item.time} seconds, Watts - ${item.watts}, Watt-hours - ${item['watt-hours'].toFixed(2)} <button onclick="deleteEntry(${index})">Delete</button>`;
+        //                 list.appendChild(listItem);
+        //             });
+        //
+        //             // Prikaz delilnikov, če so vnosi
+        //             dividers.forEach(divider => {
+        //                 divider.style.display = data.length > 0 ? 'block' : 'none';
+        //             });
+        //
+        //             // Posodobi skupne vat-ure
+        //             document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(2)}`;
+        //         })
+        //         .catch(error => console.error('Error fetching consumption data:', error));
+        // }
         function updateConsumptionData() {
             fetch('/get_consumption_data')
                 .then(response => response.json())
                 .then(result => {
                     const { data, total_Wh } = result;
                     const list = document.getElementById('consumptionList');
-                    const dividers = document.querySelectorAll('.divider');
-                    list.innerHTML = '';
+                    list.innerHTML = '';  // Clear existing items
 
-                    // Prikaže posamezne vnose porabe
+                    // Display entries with timestamp
                     data.forEach((item, index) => {
                         const listItem = document.createElement('li');
-                        listItem.textContent = `Entry ${index + 1}: Time - ${item.time} seconds, Watts - ${item.watts}, Watt-hours - ${item['watt-hours'].toFixed(2)}`;
+                        listItem.innerHTML = `Entry ${index + 1} (${item.timestamp}): Time - ${item.time} seconds, Watts - ${item.watts}, Watt-hours - ${item['watt-hours'].toFixed(2)} <button onclick="deleteEntry(${index})">Delete</button>`;
                         list.appendChild(listItem);
                     });
 
-                    // Prikaz delilnikov, če so vnosi
-                    dividers.forEach(divider => {
-                        divider.style.display = data.length > 0 ? 'block' : 'none';
-                    });
-
-                    // Posodobi skupne vat-ure
+                    // Update total watt-hours
                     document.getElementById('totalWattHours').innerText = `Total Watt-Hours: ${total_Wh.toFixed(2)}`;
                 })
                 .catch(error => console.error('Error fetching consumption data:', error));
         }
+
+
+        // Izbriši vnos na seznamu
+        function deleteEntry(index) {
+            fetch(`/delete_entry/${index}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        updateConsumptionData(); // Refresh the list after deletion
+                    } else {
+                        console.error('Error deleting entry:', result.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
     </script>
 </head>
-<body>
+<body onload="updateConsumptionData()">
+<!--  Prikaže podatke tudi refreshas stran -->
     <!-- Glavna vsebina strani -->
     <div class="content">
         <!-- Slika svetlobe z osrednjo poravnavo -->
