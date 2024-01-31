@@ -194,7 +194,7 @@ input:checked:focus + .switch-left + .switch-right {
     margin-top: 15px; /* Dodan zgornji rob 15px */
 }
 
-/* Slog za odsek s podatki o porabi */
+/* Slog za odsek s podatki o porarbi */
 .consumption-data {
     margin-top: 15px; /* Dodan zgornji rob 15px */
 }
