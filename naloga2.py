@@ -15,13 +15,16 @@ total_Wh = 0            # Globalna spremenljivka za shranjevanje skupne porabe v
 def save_to_csv():
     # Funkcija za shranjevanje podatkov o porabi v CSV datoteko
     global consumption_data
-    with open('consumption_data.csv', 'w', newline='') as file:
-        fieldnames = ['timestamp', 'time', 'watts', 'watt-hours']  # Imena stolpcev v CSV datoteki
-        writer = csv.DictWriter(file, fieldnames=fieldnames)  # Ustvarjanje pisalca za pisanje slovarjev v CSV
+    try:
+        with open('consumption_data.csv', 'w', newline='') as file:
+            fieldnames = ['timestamp', 'time', 'watts', 'watt-hours']  # Imena stolpcev v CSV datoteki
+            writer = csv.DictWriter(file, fieldnames=fieldnames)  # Ustvarjanje pisalca za pisanje slovarjev v CSV
 
-        writer.writeheader()  # Pisanje vrstice z imeni stolpcev
-        for data in consumption_data:
-            writer.writerow(data)  # Pisanje posameznih vrstic podatkov
+            writer.writeheader()  # Pisanje vrstice z imeni stolpcev
+            for data in consumption_data:
+                writer.writerow(data)  # Pisanje posameznih vrstic podatkov
+    except Exception as e:
+        print("Error saving to CSV:", str(e))
 
 
 def load_from_csv():
@@ -87,6 +90,7 @@ def export_to_list(state, time, watts):
             })
             total_Wh += watt_hours  # Dodajanje k skupnim vatnim uram
             print_consumption_data()  # Izpis podatkov o porabi
+            save_to_csv()
 
         image_file = 'light_off.png'
     return jsonify({'image': url_for('static', filename=image_file), 'state': 'off' if state == 'on' else 'on'})
