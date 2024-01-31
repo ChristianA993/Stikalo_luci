@@ -216,41 +216,41 @@ input:checked:focus + .switch-left + .switch-right {
     display: none; /* Sprva skrit */
 }
 
+/* Ozadje strani */
 body {
   background-image: url('/static/bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-
 }
 
-/* Table styles */
+/* Slogi za tabelo */
 table {
     width: 90%;
-    border-collapse: collapse; /* Ensures that the border is neat */
+    border-collapse: collapse; /* Poskrbi za urejen rob tabele */
     margin-left: auto;
     margin-right: auto;
 }
 
 table, th, td {
-    border: 1px solid black; /* Adds borders to the table, its rows, and cells */
+    border: 1px solid black; /* Dodaja robove tabeli, njenim vrsticam in celicam */
 }
 
 th {
-    background-color: #0084d0; /* Sets the header background to blue */
-    color: white; /* Sets the text color in the header to white */
+    background-color: #0084d0; /* Nastavi ozadje glave tabele na modro */
+    color: white; /* Nastavi barvo besedila v glavi tabele na belo */
 }
 
 td {
-    text-align: center; /* Centers the content in table cells */
+    text-align: center; /* Centrira vsebino v celicah tabele */
 }
 
 th, td {
-    padding: 8px; /* Adds some padding inside cells for better readability */
+    padding: 8px; /* Dodaja nekaj polnila znotraj celic za boljšo berljivost */
 }
 
-
+/* Slogi za gumb "Izbriši" */
 .delete-btn {
   background-color: #bd5757;
   color: white;
@@ -262,11 +262,12 @@ th, td {
   background-color: #a64c4c;
 }
 
+/* Kontejner za svetlobo */
 .light-container {
-    position: relative; /* Makes the container relative for absolute positioning of children */
+    position: relative; /* Nastavi relativni položaj za absolutno pozicioniranje otrok */
 }
 
-
+/* Animacija utripanja */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -278,23 +279,24 @@ th, td {
     opacity: 0.7;
   }
 }
+
+/* Prekrivna slika za utripanje */
 .flare-overlay {
-    position: absolute; /* Absolutely position the flare image */
-    top: -330px; /* Align to the top of the container */
-    left: 0; /* Align to the left of the container */
-    width: 100%; /* Make the flare image the same width as the container */
-    height: 100%; /* Make the flare image the same height as the container */
-  mix-blend-mode: screen;
-  opacity: 0.7;
+    position: absolute; /* Absolutno pozicioniranje prekrivne slike utripanja */
+    top: -330px; /* Poravna z vrhom kontejnerja */
+    left: 0; /* Poravna z levim robom kontejnerja */
+    width: 100%; /* Nastavi širino prekrivne slike enako širini kontejnerja */
+    height: 100%; /* Nastavi višino prekrivne slike enako višini kontejnerja */
+    mix-blend-mode: screen;
+    opacity: 0.7;
 
-  animation-name: fadeIn;
-  animation-duration: 0.7s;
-  animation-fill-mode: forwards;
-  animation-play-state: paused;
-
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
 }
 
-
+/* Kontejner za spletno vsebino */
 .site_container{
   padding: 10px;
   margin: 20px 40px;
@@ -302,10 +304,9 @@ th, td {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
-
 }
 
-
+/* Skupna poraba vat-ur */
 #totalWattHours {
   margin: 20px;
   color: #bd5757;
